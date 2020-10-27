@@ -10,20 +10,20 @@ class Element:
         self._data = element
         if handler:
             self._handler = handler
-    
+
     def key(self):
-        return self._data.get('label', None)
+        return self._data.get("label", None)
 
     @property
     def handler(self):
         return self._handler
-    
+
     @handler.setter
     def handler(self, handler):
         self._handler = handler
-    
+
     def __str__(self):
-        return self._data.get('label', self._data)
+        return self._data.get("label", self._data)
 
 
 class Node(Element):
@@ -31,22 +31,20 @@ class Node(Element):
     _cmds = {}
 
     def id(self):
-        return self._data.get('id', None)
+        return self._data.get("id", None)
 
     def add_cmd(self, key, target):
         self._cmds[key] = target
 
 
-
 class Edge(Element):
-
     @property
     def source(self):
-        return self._data['source']
-    
+        return self._data["source"]
+
     @property
     def target(self):
-        return self._data['target']
+        return self._data["target"]
 
 
 class DiGraph:
@@ -68,7 +66,7 @@ class DiGraph:
 
     @property
     def start(self):
-        start = self._model.get('Start', None)
+        start = self._model.get("Start", None)
         if start is None:
             raise ValueError("Could not find start node.")
         return start
@@ -86,32 +84,25 @@ class DiGraph:
         return self._edges
 
 
-NodeLine = re.compile(r'([0-9]+)\s(.*)')
+NodeLine = re.compile(r"([0-9]+)\s(.*)")
 
-EdgeLine = re.compile(r'([0-9]+)\s([0-9]+)\s(.*)')
+EdgeLine = re.compile(r"([0-9]+)\s([0-9]+)\s(.*)")
+
 
 class TGF:
-
     @staticmethod
-    def _node_parser(line, fmt = NodeLine):
+    def _node_parser(line, fmt=NodeLine):
         m = fmt.match(line)
         if not m:
             raise ValueError(f"Incorrect format for Node: {line}")
-        return {
-            'id': m.group(1),
-            'label': m.group(2)
-        }
+        return {"id": m.group(1), "label": m.group(2)}
 
     @staticmethod
-    def _edge_parser(line, fmt = EdgeLine):
+    def _edge_parser(line, fmt=EdgeLine):
         m = fmt.match(line)
         if not m:
             raise ValueError(f"Incorrect format for Edge: {line}")
-        return {
-            'source': m.group(1),
-            'target': m.group(2),
-            'label': m.group(3)
-        }
+        return {"source": m.group(1), "target": m.group(2), "label": m.group(3)}
 
     @staticmethod
     def load_digraph(filename, register):
@@ -123,7 +114,7 @@ class TGF:
             for line in f:
                 if not line:
                     pass
-                elif line.startswith('#'):
+                elif line.startswith("#"):
                     lst = edges
                     parser = TGF._edge_parser
                 else:

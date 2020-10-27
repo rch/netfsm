@@ -1,5 +1,3 @@
-
-
 class Event:
     _event = None
 
@@ -12,7 +10,7 @@ class Transition:
 
     def __init__(self, state, model, event):
         self._elements = [state, event]
-    
+
     def add(self, element):
         self._elements.append(element)
 
@@ -43,4 +41,3 @@ class FSM:
     def handle(self, event):
         txn = Transition(self._state, self._model, event)
         return txn
-

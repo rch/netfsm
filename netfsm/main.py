@@ -5,7 +5,7 @@ from core import graph
 from core import fsm
 
 
-NORMALIZE_NAMES = os.getenv('NORMALIZE_NAMES', True)
+NORMALIZE_NAMES = os.getenv("NORMALIZE_NAMES", True)
 
 register = [
     model.StartNode(),
@@ -14,9 +14,9 @@ register = [
     model.VolcanoNode(),
     model.ForestNode(),
     model.FieldNode(),
-    model.MountainNode()
+    model.MountainNode(),
 ]
-digraph = graph.TGF.load_digraph('digraph.tgf', register)
+digraph = graph.TGF.load_digraph("digraph.tgf", register)
 
 fsm = fsm.FSM(digraph)
 
@@ -36,6 +36,7 @@ def handle_event(event):
     # print structure
     print(transition)
     # ---------- END STATE HANDLING CODE ------------------
+
 
 if __name__ == "__main__":
     while True:

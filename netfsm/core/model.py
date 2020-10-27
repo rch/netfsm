@@ -1,7 +1,6 @@
-
 class Base:
     key = None
-    
+
     def __init__(self):
         pass
 
@@ -10,33 +9,31 @@ class Base:
 
     def exit(self, context):
         pass
-    
-    
+
 
 class StartNode(Base):
-    key = 'Start'
+    key = "Start"
 
 
 class LakeNode(Base):
-    key = 'Lake'
+    key = "Lake"
 
 
 class OceanNode(Base):
-    key = 'Ocean'
+    key = "Ocean"
 
 
 class VolcanoNode(Base):
-    key = 'Volcano'
+    key = "Volcano"
 
 
 class ForestNode(Base):
-    key = 'Forest'
+    key = "Forest"
 
 
 class FieldNode(Base):
-    key = 'Field'
+    key = "Field"
 
 
 class MountainNode(Base):
-    key = 'Mountain'
-
+    key = "Mountain"
