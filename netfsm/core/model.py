@@ -4,11 +4,11 @@ class Base:
     def __init__(self):
         pass
 
-    def enter(self, context):
-        pass
+    def enter(self):
+        print(f"Entering: {self.key}")
 
-    def exit(self, context):
-        pass
+    def exit(self):
+        print(f"Exiting: {self.key}")
 
 
 class StartNode(Base):

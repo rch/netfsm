@@ -7,15 +7,15 @@ from core import fsm
 
 NORMALIZE_NAMES = os.getenv("NORMALIZE_NAMES", True)
 
-register = [
-    model.StartNode(),
-    model.LakeNode(),
-    model.OceanNode(),
-    model.VolcanoNode(),
-    model.ForestNode(),
-    model.FieldNode(),
-    model.MountainNode(),
-]
+register = {
+    model.StartNode.key : model.StartNode(),
+    model.LakeNode.key : model.LakeNode(),
+    model.OceanNode.key : model.OceanNode(),
+    model.VolcanoNode.key : model.VolcanoNode(),
+    model.ForestNode.key : model.ForestNode(),
+    model.FieldNode.key : model.FieldNode(),
+    model.MountainNode.key : model.MountainNode(),
+}
 digraph = graph.TGF.load_digraph("digraph.tgf", register)
 
 fsm = fsm.FSM(digraph)

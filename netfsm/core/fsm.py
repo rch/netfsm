@@ -1,3 +1,6 @@
+from . import model
+
+
 class Event:
     _event = None
 
@@ -67,9 +70,14 @@ class FSM:
 
     @state.setter
     def state(self, node):
+        if issubclass(type(self._state.handler), model.Base):
+            self._state.handler.exit()
+        if issubclass(type(node.handler), model.Base):
+            node.handler.enter()
         self._state = node
 
     def handle(self, event):
         txn = Transition(self._state, self._model, event)
-        self._state = self._model[txn.target]
+        if txn.target:
+            self.state = self._model[txn.target]
         return txn
