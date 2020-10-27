@@ -7,12 +7,43 @@ class Event:
 
 class Transition:
     _elements = None
+    _source = None
+    _target = None
+    _event = None
 
     def __init__(self, state, model, event):
-        self._elements = [state, event]
+        self._elements = [None] * 3
+        self.source = state
+        self.event = event
+        if event in state._cmds:
+            self.target = state._cmds[event]
 
-    def add(self, element):
-        self._elements.append(element)
+    @property
+    def source(self):
+        return self._source
+    
+    @source.setter
+    def source(self, element):
+        self._source = element
+        self._elements[0] = element
+    
+    @property
+    def target(self):
+        return self._target
+    
+    @target.setter
+    def target(self, element):
+        self._target = element
+        self._elements[2] = element
+    
+    @property
+    def event(self):
+        return self._event
+    
+    @event.setter
+    def event(self, element):
+        self._event = element
+        self._elements[1] = element
 
     def __str__(self):
         lst = ["({})".format(el) for el in self._elements]
@@ -40,4 +71,5 @@ class FSM:
 
     def handle(self, event):
         txn = Transition(self._state, self._model, event)
+        self._state = self._model[txn.target]
         return txn

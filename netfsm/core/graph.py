@@ -3,14 +3,16 @@ from collections import defaultdict
 
 
 class Element:
-    _data = {}
+    _data = None
     _handler = None
 
     def __init__(self, element, handler=None):
+        self._cmds = {}
         self._data = element
         if handler:
             self._handler = handler
 
+    @property
     def key(self):
         return self._data.get("label", None)
 
@@ -30,6 +32,7 @@ class Node(Element):
 
     _cmds = {}
 
+    @property
     def id(self):
         return self._data.get("id", None)
 
@@ -57,12 +60,13 @@ class DiGraph:
         self._nodes = list(map(Node, nodes))
         self._edges = list(map(Edge, edges))
         for node in self._nodes:
-            if node.key() in register:
-                node.handler = register[node.key()]
-            self._model[node.key()] = node
-            self._ids[node.id()] = node.key()
+            if node.key in register:
+                node.handler = register[node.key]
+            self._model[node.key] = node
+            self._ids[node.id] = node.key
         for edge in self._edges:
-            self._model[self._ids[edge.source]].add_cmd(edge.key, edge.target)
+            self._model[self._ids[edge.source]].add_cmd(
+                edge.key, self._ids[edge.target])
 
     @property
     def start(self):
